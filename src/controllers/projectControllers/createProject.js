@@ -1,4 +1,4 @@
-const knex = require('../../../database/connection');
+const knex = require('../../database/connection');
 
 const createProject = async (req, res) => {
   const { address, ...project } = req.body;
