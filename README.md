@@ -4,34 +4,43 @@
 
 ---
 
-## EndPoint: Get all projects:
+## EndPoint: All projects
 
 `Request type:` **GET**
 
 `Route:` **/projects**
 
+`Example:` **localhost:3000/projects**
+
 ### EndPoint Return
 
-_Return a array with all projects, if dont have a project, this array will return a empty_
+_Returns an object **projects** with an array of projects, if don't have a project, this object will returns an empty array_
 
 ```json
-[
-  {
-    "name": "Project 1",
-    "address": "Rua 1"
-  }
-]
+{
+  "projects": [
+    {
+      "name": "Project 1",
+      "description": "About project",
+      "city": "City",
+      "state": "State",
+      "country": "Brazil"
+    }
+  ]
+}
 ```
 
 ---
 
-## EndPoint:  SignUp
+## EndPoint: SignUp
 
 `Request type:` **POST**
 
 `Route:` **/sign-up**
 
-_Body needed:_
+`Example:` **localhost:3000/sign-up**
+
+### Body needed:
 
 ```json
 {
@@ -40,14 +49,17 @@ _Body needed:_
 }
 ```
 
-___
-## EndPoint para fazer login
+---
+
+## EndPoint: Login
 
 `Request type:` **POST**
 
 `Route:` **/login**
 
-_Body needed:_
+`Example:` **localhost:3000/login**
+
+### Body needed:
 
 ```json
 {
@@ -55,8 +67,10 @@ _Body needed:_
   "password": "Rua 1"
 }
 ```
+
 ### EndPoint Return
-_Return a object with token and user data_
+
+_Returns an object with token and user data_
 
 ```json
 [
@@ -69,7 +83,8 @@ _Return a object with token and user data_
   }
 ]
 ```
-___
+
+---
 
 ## Editar usuário
 
@@ -77,7 +92,7 @@ ___
 
 `Route:` **/user/:id**
 
-_Body Necessário:_
+### Body Needed:
 
 ```json
 {
@@ -85,8 +100,10 @@ _Body Necessário:_
   "password": "Rua 1"
 }
 ```
+
 ### EndPoint Return
-_Return a object with user data edited_
+
+_Returns an object with user data edited_
 
 ```json
 [
@@ -96,62 +113,134 @@ _Return a object with user data edited_
   }
 ]
 ```
-___
 
-## EndPoint para criar projeto
+---
+## EndPoint: Get User Projects
 
-`Requisição do tipo:` **POST**
+`Request type:` **GET**
 
-`Rota:` **/project**
+`Route:` **/projects/:id**
 
-_Body Necessário:_
+`Example:` **localhost:3000/projects/11**
+
+### EndPoint Return
+
+_Returns an object **projects** with an array of projects, if don't have a project, this object will returns an empty array_
+
+```json
+{
+  "projects": [
+    {
+      "name": "Project 1",
+      "description": "About project",
+      "city": "City",
+      "state": "State",
+      "country": "Brazil"
+    }
+  ]
+}
+```
+
+---
+## EndPoint: Create project
+
+`Request Type:` **POST**
+
+`Route:` **/project**
+
+`Example:` **localhost:3000/project**
+
+### Body Needed:
 
 ```json
 {
   "name": "Project 1",
-  "email":"email@email.com",
-  "pix": "Rua 1",
-  "address": {
-      "city": "city",
-      "state": "state",
-      "street": "project address",
-      "zipcode": "00000-000",
-      "country": "Brazil",
-      "complement":"complement"
-  },
+  "email": "email@email.com",
+  "owner_name": "Owner",
+  "owner_email": "owner@owner.com",
   "description": "About project",
-  "instagram": "@projeto"
+  "created_at": "2002-12-03",
+  "modified_at": "2002-12-03",
+  "project_image": "project.png",
+  //Optional
+  "website": "www.project.com",
+  "instagram": "@project",
+  "cnpj": "1234567890",
+  "pix": "email@email.com",
+  //
+  "address": {
+    "city": "City",
+    "state": "State",
+    "country": "Brazil",
+    "zipcode": "00000000",
+    // Optional
+    "street": "Street",
+    "complement": "Complement"
+    //
+  }
 }
 ```
+
 ### EndPoint Return
-_Retorna um objeto com dados do projeto criado_
 
-```json
-[
-  {
-    "name": "Projeto 2",
-    "password": "xyzxyz"
-  }
-]
-```
-___
-
-## EndPoint para editar projeto
-
-`Requisição do tipo:` **PUT**
-
-`Rota:` **/project/:id**
-
-_Body Necessário:_
+_Returns an object **project** with project details_
 
 ```json
 {
-  "name": "Project 1",
-  "password": "Rua 1"
+  "project": {
+    "name": "Project 1",
+    "description": "About project",
+    "city": "City",
+    "state": "State",
+    "country": "Brazil"
+  }
 }
 ```
+
+---
+
+## EndPoint: Edit project
+
+`Request type:` **PUT**
+
+`Route:` **/project/:id**
+
+`Example:` **localhost:3000/project/11**
+
+### Body Needed:
+
+_Obs: All fields are optional, but one is required to edit a project_
+
+```json
+{
+  //Optional
+  "name": "Project 1",
+  "email": "email@email.com",
+  "owner_name": "Owner",
+  "owner_email": "owner@owner.com",
+  "description": "About project",
+  "created_at": "2002-12-03",
+  "modified_at": "2002-12-03",
+  "project_image": "project.png",
+  "website": "www.project.com",
+  "instagram": "@project",
+  "cnpj": "1234567890",
+  "pix": "email@email.com",
+  "address": {
+    "city": "City",
+    "state": "State",
+    "country": "Brazil",
+    "zipcode": "00000000",
+    "street": "Street",
+    "complement": "Complement"
+  }
+  //
+}
+```
+
 ### EndPoint Return
-_Retorna um objeto com novos dados do projeto_
+
+_Returns an object with all project data(old and new)_
 
 ```json
 [
@@ -161,22 +250,27 @@ _Retorna um objeto com novos dados do projeto_
   }
 ]
 ```
-___
 
-## EndPoint para deletar projeto
+---
 
-`Requisição do tipo:` **DELETE**
+## EndPoint: Delete Project
 
-`Rota:` **/project/:id**
+`Request type:` **DELETE**
 
-### Retorno do EndPoint
-_Retorna uma mensagem_
+`Route:` **/project/:id**
+
+`Example:` **localhost:3000/project/11**
+
+### EndPoint Return
+
+_Returns a message_
 
 ```js
-'Projeto deletado!'
+"Projeto deletado!";
 ```
 
-___
+---
+
 ## EndPoint para participar projeto
 
 `Requisição do tipo:` **POST**
@@ -194,8 +288,9 @@ _Body Necessário:_
 ```
 
 ### EndPoint Return
+
 _Return a message_
 
 ```js
-'Foi enviado um email para o projeto, aguarde que o projeto entrará em contato com você!'
+"Foi enviado um email para o projeto, aguarde que o projeto entrará em contato com você!";
 ```
