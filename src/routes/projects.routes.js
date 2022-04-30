@@ -10,10 +10,10 @@ const verifyIfEmailExists = require('../middlewares/projectMiddlewares/verifyIfE
 const verifyIfProjectExists = require('../middlewares/projectMiddlewares/verifyIfProjectExists');
 const validateLogin = require('../middlewares/validateLogin');
 
-projectRoutes.get('/projects', getProjects);
+projectRoutes.get('/', getProjects);
 projectRoutes.use(validateLogin);
-projectRoutes.post('/project', verifyFields, verifyIfEmailExists, createProject);
-projectRoutes.put('/project/:id', verifyIfProjectExists, verifyIfEmailExists, updateProject);
-projectRoutes.delete('/project/:id', verifyIfProjectExists, deleteProject);
+projectRoutes.post('/', verifyFields, verifyIfEmailExists, createProject);
+projectRoutes.put('/:id', verifyIfProjectExists, verifyIfEmailExists, updateProject);
+projectRoutes.delete('/:id', verifyIfProjectExists, deleteProject);
 
 module.exports = projectRoutes;
