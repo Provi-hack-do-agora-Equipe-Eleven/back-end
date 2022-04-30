@@ -14,7 +14,7 @@ const createProject = async (req, res) => {
   project.user_id = req.user.id;
 
   try {
-    const [projectCreated] = await knex('projects').insert(project).returning('*');
+    const [projectCreated] = await knex('projects').insert(project).returning(['id','name', 'description']);
     if (!projectCreated) {
       return res.status(404).json({ error: 'Projeto não pode ser criado' });
     }
@@ -25,9 +25,6 @@ const createProject = async (req, res) => {
     if (!addressCreated) {
       return res.status(404).json({ error: 'Projeto não pode ser criado' });
     }
-
-    const { id, project_id, ...projectAddress } = addressCreated;
-    projectCreated.address = projectAddress;
 
     return res.status(201).json({ project: projectCreated });
   } catch (error) {
