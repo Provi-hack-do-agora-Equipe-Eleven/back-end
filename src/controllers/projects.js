@@ -40,7 +40,7 @@ const updateProject = async (req, res) => {
     const [ projectUpdated ] = await knex('projects')
       .where({ id })
       .update(project)
-      .returning('*');
+      .returning(['id','name', 'description']);
 
     if (!projectUpdated) {
       return res.status(404).json({ error: 'Projeto não pode ser atualizado' });
@@ -48,15 +48,11 @@ const updateProject = async (req, res) => {
 
     const [ addressUpdated ] = await knex('adresses')
       .where({ project_id: id })
-      .update(address)
-      .returning('*');
-
+      .update(address);
+      
     if (!addressUpdated) {
       return res.status(404).json({ error: 'Endereço não pode ser atualizado' });
     }
-
-    const { id: addressID, project_id, ...projectAddress } = addressUpdated;
-    projectUpdated.address = projectAddress;
 
     return res.status(200).json({ project: projectUpdated });
   } catch (error) {
