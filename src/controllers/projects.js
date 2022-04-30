@@ -12,7 +12,7 @@ const getProjects = async (req, res) => {
 const createProject = async (req, res) => {
   const data = req.body;
   const { id: user_id } = req.user;
-  
+
   try {
     const [project] = await knex('projects')
       .insert({
@@ -44,7 +44,14 @@ const createProject = async (req, res) => {
     });
 
     const projectCreated = await knex
-      .select('p.id', 'p.name', 'p.description', 'a.city', 'a.state', 'a.country')
+      .select(
+        'p.id',
+        'p.name',
+        'p.description',
+        'a.city',
+        'a.state',
+        'a.country',
+      )
       .from('projects AS p')
       .leftJoin('adresses AS a', 'a.project_id', 'p.id')
       .where({ 'p.id': project.id })
@@ -56,4 +63,28 @@ const createProject = async (req, res) => {
   }
 };
 
-module.exports = { getProjects, createProject };
+const updateProject = async (req, res) => {
+  const { address, ...project } = req.body;
+  const { id } = req.params;
+  
+  try {
+    const updatedProject = await knex('projects').where({ id }).update(project);
+    if(!updatedProject) return res.status(404).json({ error: 'Projeto não pode ser atualizado' });
+    
+    const updatedAddress = await knex('adresses').where({ project_id: id }).update(address);
+    if(!updatedAddress) return res.status(404).json({ error: 'Endereço não pode ser atualizado' });
+
+    const projectUpdated = await knex('projects')
+      .select('p.id', 'p.name', 'p.description', 'a.city', 'a.state', 'a.country')
+      .from('projects AS p')
+      .leftJoin('adresses AS a', 'a.project_id', 'p.id')
+      .where({ 'p.id': id })
+      .first();
+
+    return res.status(200).json({ project: projectUpdated });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+module.exports = { getProjects, createProject, updateProject };
