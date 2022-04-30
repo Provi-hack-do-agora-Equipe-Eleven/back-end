@@ -88,7 +88,7 @@ const deleteProject = async (req, res) => {
 }
 
 const getUserProjects = async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.user;
 
   try {
     const projects = await knex('projects').where({ user_id: id });
