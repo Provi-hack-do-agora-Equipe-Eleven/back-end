@@ -69,7 +69,7 @@ const updateProject = async (req, res) => {
 
 const deleteProject = async (req, res) => {
   const { id } = req.params;
-  
+
   try {
     const addressDeleted = await knex('adresses').where({ project_id: id }).del();
     if(!addressDeleted) {
@@ -87,4 +87,15 @@ const deleteProject = async (req, res) => {
   }
 }
 
-module.exports = { getProjects, createProject, updateProject, deleteProject };
+const getUserProjects = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const projects = await knex('projects').where({ user_id: id });
+    return res.status(200).json({ projects: projects });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+}
+
+module.exports = { getProjects, createProject, updateProject, deleteProject, getUserProjects };
