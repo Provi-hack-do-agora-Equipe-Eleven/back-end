@@ -1,6 +1,4 @@
-const knex = require('../database/connection');
-
-const verifyFiels = async (req, res, next) => {
+const verifyFields = async (req, res, next) => {
   const { address, ...project } = req.body;
   const { city, state, country, zipcode } = address;
 
@@ -41,23 +39,4 @@ const verifyFiels = async (req, res, next) => {
   next();
 };
 
-const verifyIfEmailExists = async (req, res, next) => {
-  const { address, ...project } = req.body;
-  const { email } = project;
-  const verifyEmail = await knex('users').where({ email }).first();
-  if (verifyEmail) {
-    return res.status(400).json({ error: 'Email já cadastrado' });
-  }
-  next();
-};
-
-const verifyIfProjectExists = async (req, res, next) => {
-  const { id } = req.params;
-  const verifyProject = await knex('projects').where({ id }).first();
-  if (!verifyProject) {
-    return res.status(400).json({ error: 'Projeto não existe' });
-  }
-  next();
-};
-
-module.exports = { verifyFiels, verifyIfEmailExists, verifyIfProjectExists };
+module.exports = verifyFields;
