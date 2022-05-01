@@ -6,7 +6,7 @@
   "author": "Augusto Sardinha <ssardinhaaugusto@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon ./src/index.js"
+    "start": "node ./src/index.js"
   },
   "devDependencies": {
     "dotenv": "^16.0.0",
