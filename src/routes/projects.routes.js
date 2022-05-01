@@ -2,6 +2,7 @@ const { Router } = require('express');
 const projectRoutes = Router();
 
 const getProjects = require('../controllers/projectControllers/getProjects');
+const getProjectById = require('../controllers/projectControllers/getProjectById');
 const createProject = require('../controllers/projectControllers/createProject');
 const updateProject = require('../controllers/projectControllers/updateProject');
 const deleteProject = require('../controllers/projectControllers/deleteProject');
@@ -11,6 +12,7 @@ const verifyIfProjectExists = require('../middlewares/projectMiddlewares/verifyI
 const validateLogin = require('../middlewares/validateLogin');
 
 projectRoutes.get('/', getProjects);
+projectRoutes.get('/project/:id', getProjectById);
 projectRoutes.use(validateLogin);
 projectRoutes.post('/', verifyFields, verifyIfEmailExists, createProject);
 projectRoutes.put('/:id', verifyIfProjectExists, verifyIfEmailExists, updateProject);
