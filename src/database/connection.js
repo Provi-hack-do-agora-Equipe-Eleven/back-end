@@ -1,7 +1,7 @@
 const knex = require('knex')({
   client: 'pg',
   connection: {
-    connectionSring: `${process.env.DATABASE_URL}`,
+    connectionSring: `${process.env.DATABASE_URL}?ssl=true`,
     ssl: { rejectUnauthorized: false }
   }
   // {
