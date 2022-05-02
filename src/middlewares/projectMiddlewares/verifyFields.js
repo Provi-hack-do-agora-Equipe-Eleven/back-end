@@ -8,18 +8,6 @@ const verifyFields = async (req, res, next) => {
   if (!project.description.trim()) {
     return res.status(400).json({ error: 'Descrição é obrigatória' });
   }
-  if (!project.owner_name.trim()) {
-    return res.status(400).json({ error: 'Nome do dono é obrigatório' });
-  }
-  if (!project.owner_email.trim()) {
-    return res.status(400).json({ error: 'Email do dono é obrigatório' });
-  }
-  if (!project.created_at.trim()) {
-    return res.status(400).json({ error: 'Data de criação é obrigatória' });
-  }
-  if (!project.modified_at.trim()) {
-    return res.status(400).json({ error: 'Data de modificação é obrigatória' });
-  }
   if (!project.project_image.trim()) {
     return res.status(400).json({ error: 'Imagem é obrigatória' });
   }
