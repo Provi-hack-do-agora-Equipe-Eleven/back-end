@@ -1,6 +1,6 @@
 const knex = require('knex')({
   client: 'pg',
-  connection: process.env.DATABASE_URL
+  connection: `${process.env.DATABASE_URL}?ssl=true`
   // {
   //   host: process.env.DB_HOST,
   //   user: process.env.DB_USER,
